@@ -192,48 +192,66 @@ A3: We will create an empty vector of size equal to vector_01.  First we will mu
 
 def matrix_vector_mult(vector_01, matrix_01):
 
-# Initializing result as a list containg 0 equal length to vector_01
+# Initializing result as a list containg 0 equal length to matrix_01
 result = [0 for element matrix_01]
 
-# Using previous algorithm scalor_vector_mult, run this algorithm on each vector in matrix_01 using corresponding element of Vector_01 storing result in result. 
-
-For index in range(length(result)):
-	result[index] = scalor_vector_mult(vector_01[index], matrix_01[index])
-
-#intialize result vector as a list:
-result_02 = [0 for element vector_01]
-
-# run add_vectors on each vector in result_01
-for index in range(length(result)):
-	result_02[index] = add_vectors(result_01[index])
-
-# Return the desired result.
-return result_02
+# Using previous algorithms add_vectors and scalor_vector_mult, add the results of the scalor_vector_mult to the result list
+for index in range(len(result)):
+    result = add_vectors(result, scalor_vector_mult(vector_01[index], matrix_01[index]))
+return result
 """
 def matrix_vector_mult(vector_01, matrix_01):
     result = [0 for element in matrix_01]
     for index in range(len(result)):
-        result[index] = scalor_vector_mult(vector_01[index], matrix_01[index])
-    result_02 = [0 for element in vector_01]
-    for index in range(len(result_02)):
-        result_02[index] = add_vectors(result[index], result[index+1])
-    return result_02
+        result = add_vectors(result, scalor_vector_mult(vector_01[index], matrix_01[index]))
+    return result
+
 #Problem 05
+"""
+Write an algorithm to implement matrix-matrix multiplication using your
+algorithm from Problem #4.  
 
+Q1: What do we have?
 
+A1: 2 matricies matrix stored as a list of column vectors as matrix_01 and matrix_02.  Both stored on a computer. 
 
+Q2: What do we want?
+
+A2: A new matrix that has elements equal to the matrix_01 x matrix_02 multiplication.  
+
+Q3: How will we get there?
+
+A3: We will create an empty matrix of size equal to matrix_01. We will make each new vector of result = matrix_vector_mult of corresponding vector of matrix-02 and matrix_01.
+
+# Initializing result as an empty matrix - consisting of lists equal to the number of lists in the original matrix_01
+result_01 = [0 for element in matrix_01]
+
+# Using previous algorithm vector_matrix_mult, run this algorithm for the first vector in matrix_02 multiplied by matrix_01 and then the second vector, etc. 
+
+For index in range(length(result)):
+	result[index] = vector_matrix_mult(matrix_02[index], matrix_01)
+    
+return result
+"""
+def matrix_matrix_mult(matrix_01, matrix_02):
+    result = [0 for element in matrix_01]
+    for index in range(len(result)):
+        result[index] = matrix_vector_mult(matrix_02[index], matrix_01)
+    return result
 #Test Inputs
 
 test_vector_01 = [1, 2, 4]
 test_vector_02 = [3, 1, 2]
 test_vector_03 = [0, 2, 5]
 test_vector_04 = [5, 7, 2]
-test_vector_05 = [1,2]
+
 
 test_scalor_01 = 2
 
 test_matrix_01 = [test_vector_01, test_vector_02, test_vector_03]
 test_matrix_02 = [test_vector_02, test_vector_04, test_vector_01]
+test_matrix_03 = [test_vector_04, test_vector_01, test_vector_02]
+
 #Problem 0: tests
 # add_vectors(test_vector_01,test_vector_02) should output [4,3,6]
 print('Test Output for add_vectors: ' + str(add_vectors(test_vector_01,test_vector_02)))
@@ -262,8 +280,22 @@ print('Should have been [[6,2,4],[10,14,4],[2,4,8]]')
 # matrix_add(test_matrix_01, test_matrix_02) should output [[4,3,6],[8,8,4],[1,4,9]]
 print('Test Output for matrix_add:'+ str(matrix_add(test_matrix_01, test_matrix_02)))
 print('Should have been [[4,3,6],[8,8,4],[1,4,9]]')
+# matrix_add(test_matrix_01, test_matrix_03) should output [[6,9,6],[4,3,6],[3,3,7]]
+print('Test Output for matrix_add:'+ str(matrix_add(test_matrix_01, test_matrix_03)))
+print('Should have been [[6,9,6],[4,3,6],[3,3,7]]')
 
 #Problem 4: tests
-# matrix_vector_mult(test_vector, test_matrix_02) should output
+# matrix_vector_mult(test_vector_01, test_matrix_01) should output [7,12,28]
 print('Test Output for matrix_vector_mult:'+ str(matrix_vector_mult(test_vector_01, test_matrix_01)))
+print('Should have been [7,12,28]')
+# matrix_vector_mult(test_vector, test_matrix_02) should output [15,24,24]
+print('Test Output for matrix_vector_mult:'+ str(matrix_vector_mult(test_vector_03, test_matrix_02)))
+print('Should have been [15,24,24]')
 
+#Problem 5: tests
+# matrix_matrix_mult(test_matrix_01, test_matrix_02) should output [[6,11,24],[26,21,44],[7,12,28]]
+print('Test Output for matrix_mult:'+ str(matrix_matrix_mult(test_matrix_01, test_matrix_02)))
+print('Should have been [[6,11,24],[26,21,44],[7,12,28]]')
+# matrix_matrix_mult(test_matrix_02, test_matrix_01) should output [[17,23,22],[16,14,16],[15,24,24]]
+print('Test Output for matrix_mult:'+ str(matrix_matrix_mult(test_matrix_02, test_matrix_01)))
+print('Should have been [[17,23,22],[16,14,16],[15,24,24]]')
