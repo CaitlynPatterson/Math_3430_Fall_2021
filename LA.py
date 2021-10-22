@@ -136,6 +136,140 @@ def matrix_matrix_mult(matrix_01: list,
         result[index] = matrix_vector_mult(matrix_02[index], matrix_01)
     return result
 
+# Problem #6
+def conjugate(scalor: complex) -> complex:
+    """
+    Finds the conjugate of complex numbers
+    
+    This will create a result number that is equal to only the real part of the
+    scalor and then subtract(negate) the imaginary from the real part.
+    
+    Args: 
+        scalor: A scalor stored as a complex number. (python will convert any numbers
+            that are not stored as complex into complex)
+    
+    Returns: The conjugate of the scalor.
+    """
+    result: complex = scalor.real
+    result -= (scalor.imag*1j)
+    return result
+
+def absolute_value(scalor: complex) -> complex:
+    """ 
+    Finds the absolute value of any number.
+    
+    This will create a result number that is equal to the conjugate of the scalor 
+    * scalor and then takes the square root of the result. 
+    
+    Args:
+        scalor: A scalor stored as a complex number. (python will convert any 
+                numbers that are not stored as complex into complex)
+    
+    Returns: The absolute value of the input.
+    """ 
+    result: complex = conjugate(scalor)*scalor
+    result = result**(1/2)
+    return result
+
+# Problem #7
+
+def p_norm(vector: list,
+           scalor: float = 2) -> list:
+    """
+    Finds the p_norm of a vector(list).
+    
+    This function will create a result list of equal length to input vector.
+    It then finds the absolute value of each element in the vector.  It then brings
+    them to the power of the scalor input. The function then sums the result and 
+    is brought the power of (1/scalor).
+    
+    Args:
+        vector: stored as a list of complex, float, or ints.
+        scalor: stored as a float, defaults to 2
+    
+    Returns: The p_norm of the vector that is input. 
+    """
+    result: list = [0 for element in vector]
+    for index in range(len(result)):
+        result[index] = absolute_value(vector[index])
+        result[index] = result[index]**scalor
+    result = sum(result)
+    result = result**(1/scalor)
+    return result
+
+# Problem #8
+
+def infinity_norm(vector: list) -> complex:
+    """ 
+    Finds the infinity norm of a vector(list)
+    
+    The function first creates a vector of equal length to the input vector
+    and then replaces each corresponding element with the absolute value of the element
+    from the input list.  Then result is set equal to the first element in the new 
+    vector.  Then we check result against each element in the new vector for the 
+    largest. 
+    
+    Args: 
+        vector: stored as a list.
+    Returns: the infinity norm of the vector that is input. 
+    """
+    vector_abs: list = [0 for element in vector]
+    for index in range(len(vector_abs)):
+        vector_abs[index] = absolute_value(vector[index])
+    result = vector_abs[0]
+    for index in range(len(vector_abs)):
+        if result.real < vector_abs.real[index]:
+            result = vector_abs[index]
+            return result
+        else:
+            return result
+
+# Problem #9
+
+def infinity_p_norm(vector: list,
+                    scalor: float = 2,
+                    boolean) -> float:
+    """ 
+    Find the infinity norm or p norm of a vector
+    
+    This function finds the p_norm of a vector if False and the infinity norm if
+    true,  
+    
+    Args: 
+        vector: a vector stored as a list
+        scalor: a scalor stored as a float set to default to 2
+        boolean: a boolean value set to default FALSE
+        
+    Returns: the p_norm or infinity norm respectively
+    """ 
+    if boolean = FALSE:
+        result = p_norm(vector, scalor)
+    else: 
+        result = infinity_norm(vector)
+    return result
+
+# Problem #10
+
+def inner_product(vector_01: list,
+                  vector_02: list) -> float:
+    """
+    Finds the inner product of 2 vectors(lists)
+    
+    This functin finds the inner product of two vectors by taking the conjugate
+    of the first vector and then multiplies the vectors against each other and adds
+    the new elements. 
+    
+    Args:
+        vector_01: a vector stored as a list
+        vector_02: a vector stored as a list
+    Returns: the inner product of the two vectors
+    """ 
+    for index in range(len(result)):
+        result[index] = conjugate(vector_01[index])
+        result = sum(result[index]*vector_02[index])
+    return result
+
+
 
 
 
