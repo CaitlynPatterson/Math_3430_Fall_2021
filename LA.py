@@ -110,7 +110,7 @@ def matrix_vector_mult(vector_01: list,
         list of lists that represent column vectors. 
     """
     result: list = [0 for element in matrix_01]
-    for index in range(len(result)):
+    for index in range(len(vector_01)):
         result = add_vectors(result, scalor_vector_mult(vector_01[index], matrix_01[index]))
     return result
 
@@ -137,24 +137,8 @@ def matrix_matrix_mult(matrix_01: list,
     return result
 
 # Problem #6
-def conjugate(scalor: complex) -> complex:
-    """
-    Finds the conjugate of complex numbers
-    
-    This will create a result number that is equal to only the real part of the
-    scalor and then subtract(negate) the imaginary from the real part.
-    
-    Args: 
-        scalor: A scalor stored as a complex number. (python will convert any numbers
-            that are not stored as complex into complex)
-    
-    Returns: The conjugate of the scalor.
-    """
-    result: complex = scalor.real
-    result -= (scalor.imag*1j)
-    return result
 
-def absolute_value(scalor: complex) -> complex:
+def absolute_value(scalor: complex) -> float:
     """ 
     Finds the absolute value of any number.
     
@@ -167,21 +151,20 @@ def absolute_value(scalor: complex) -> complex:
     
     Returns: The absolute value of the input.
     """ 
-    result: complex = conjugate(scalor)*scalor
+    result: float = scalor*scalor.conjugate()
     result = result**(1/2)
     return result
 
 # Problem #7
 
 def p_norm(vector: list,
-           scalor: float = 2) -> list:
+           scalor: float = 2) -> float:
     """
     Finds the p_norm of a vector(list).
     
     This function will create a result list of equal length to input vector.
-    It then finds the absolute value of each element in the vector.  It then brings
-    them to the power of the scalor input. The function then sums the result and 
-    is brought the power of (1/scalor).
+    It then adds together the absolute values of each element in the vector to 
+    the power of the scalor.  the result is then to the power of 1/scalor.
     
     Args:
         vector: stored as a list of complex, float, or ints.
@@ -189,51 +172,42 @@ def p_norm(vector: list,
     
     Returns: The p_norm of the vector that is input. 
     """
-    result: list = [0 for element in vector]
-    for index in range(len(result)):
-        result[index] = absolute_value(vector[index])
-        result[index] = result[index]**scalor
-    result = sum(result)
+    result: float = 0
+    for index in range(len(vector)):
+        result += absolute_value(vector[index])**scalor
     result = result**(1/scalor)
     return result
 
 # Problem #8
 
-def infinity_norm(vector: list) -> complex:
+def infinity_norm(vector: list) -> float:
     """ 
     Finds the infinity norm of a vector(list)
     
-    The function first creates a vector of equal length to the input vector
-    and then replaces each corresponding element with the absolute value of the element
-    from the input list.  Then result is set equal to the first element in the new 
-    vector.  Then we check result against each element in the new vector for the 
-    largest. 
+    The function first creates a result equal to 0 and then checks it against 
+    each absolute value of each element and replace it with each larger element.  
     
     Args: 
         vector: stored as a list.
+        
     Returns: the infinity norm of the vector that is input. 
     """
-    vector_abs: list = [0 for element in vector]
-    for index in range(len(vector_abs)):
-        vector_abs[index] = absolute_value(vector[index])
-    result = vector_abs[0]
-    for index in range(len(vector_abs)):
-        if result.real < vector_abs.real[index]:
-            result = vector_abs[index]
-            return result
-        else:
+    result = 0
+    for index in range(len(vector)):
+        if absolute_value(index)> result:
+            result = absolute_value[index]
             return result
 
 # Problem #9
 
 def infinity_p_norm(vector: list,
                     scalor: float = 2,
-                    boolean) -> float:
+                    inf_flag: bool == False) -> float:
     """ 
     Find the infinity norm or p norm of a vector
     
-    This function finds the p_norm of a vector if False and the infinity norm if
-    true,  
+    This function finds the p_norm of a vector if true and the infinity norm if
+    false,  
     
     Args: 
         vector: a vector stored as a list
@@ -242,10 +216,10 @@ def infinity_p_norm(vector: list,
         
     Returns: the p_norm or infinity norm respectively
     """ 
-    if boolean = FALSE:
-        result = p_norm(vector, scalor)
-    else: 
+    if inf_flag:
         result = infinity_norm(vector)
+    else: 
+        result = p_norm(vector, scalor)
     return result
 
 # Problem #10
@@ -264,8 +238,9 @@ def inner_product(vector_01: list,
         vector_02: a vector stored as a list
     Returns: the inner product of the two vectors
     """ 
+    result: float = [0 for element in vector_01]
     for index in range(len(result)):
-        result[index] = conjugate(vector_01[index])
+        result[index] = vector_01[index].conjugate()
         result = sum(result[index]*vector_02[index])
     return result
 
