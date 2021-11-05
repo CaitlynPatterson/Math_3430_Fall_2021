@@ -1,34 +1,5 @@
 import LA
 
-
-# Unstable Gram - Schmidt
-def unstable_gram_schmidt(matrix_01: list) -> list:
-    """
-    Finds an Unstable version of QR factorization
-    
-    This function starts with creating a V vector equal to matrix_01.  Then it creates
-    a Q of 0's. Next, R is created equal to the inner product of Q's columns of 0
-    and V..  Then it changes V to be equal to the addition of the V and the
-    product of R*Q. Next it finds the norm of V and sets R equal to it.  Lastly
-    Q is changed to be the product of 1/r *V.
-    
-    Args: matrix_01: a matrix made of a list of lists that are column vectors.
-    
-    Retunrs:
-        [Q,R] factorization
-    """
-    for i in range(1, n+1):
-        V: list = matrix_01[i]
-        for j in range(1,j):
-            Q: list = [0 for element in matrix_01]
-            R[j][i]: list = LA.inner_product(Q[j], V)
-            V = LA.add_vectors(V, LA.scalor_matrix_mult(R[j][i], Q[j]))
-            R[i][i] = LA.p_norm(V[j])
-            Q[i] = LA.scalor_vector_mult(1/(r[i][i]), V[j])
-    return[Q,R]
-            
-    
-
 # Stable Gram - Schmidt 
 def stable_gram_schmidt(matrix_01: list) -> list:
     """
@@ -56,3 +27,21 @@ def stable_gram_schmidt(matrix_01: list) -> list:
             R[i][j] = LA.inner_product(Q[i], V[j]).real
             V[j] = LA.add_vectors(V[j], LA.scalor_vector_mult(-R[j][i], Q[i])
     return[Q,R]
+
+#Orthonormal Vectors
+def orthonormal_vectors(matrix_01: list) -> list:
+    """ 
+    Finds an orthonormal set of vectors of same span as input set of vectors.
+    
+    This function finds the Q from QR factorization and returns it.  As it is an orthonormal
+    span of the matrix_01.
+    
+    Args: 
+        matrix_01: a set of vectors stored as a list of column vectors in matrix_01.
+    
+    Returns:
+        A list of vectors as a matrix that is an orthonmormal set of vectors of the same
+        span as input matrix.
+    """
+    return stable_gram_schmidt(matrix_01)[0]
+    
