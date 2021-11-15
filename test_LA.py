@@ -45,7 +45,7 @@ def test_infinity_norm():
     assert LA.infinity_norm(vector_04) == 49
 def test_infinity_p_norm():
     assert LA.infinity_p_norm(vector_01) == 4.58257569495584+0j
-    assert LA.infinity_p_norm(vector_01, TRUE) == 16
+    assert LA.infinity_p_norm(vector_01, True) == 16
 def test_inner_product():
     assert LA.inner_product(vector_01, vector_02) == 13
     assert LA.inner_product(vector_02, vector_03) == 12

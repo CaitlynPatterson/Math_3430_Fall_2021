@@ -18,15 +18,14 @@ def stable_gram_schmidt(matrix_01: list) -> list:
     Returns: [Q,R] factorization
     """
     V: list = matrix_01
+    R: list = []
     for j in range(len(V)):
         R[j][j]: list = LA.p_norm(V[j], 2)
         Q: list = LA.scalor_vector_mult(1/R[j][j], V[j])
-        for i in range(j+1, len(V)):
-            print(i)
-            print(j)
+        for i in range(j, len(V)):
             R[i][j] = LA.inner_product(Q[i], V[j]).real
-            V[j] = LA.add_vectors(V[j], LA.scalor_vector_mult(-R[j][i], Q[i])
-    return[Q,R]
+            V[i] = LA.add_vectors(V[i], LA.scalor_vector_mult(-R[i][j], Q[j])) 
+    return [Q,R]
 
 #Orthonormal Vectors
 def orthonormal_vectors(matrix_01: list) -> list:

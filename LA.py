@@ -202,7 +202,7 @@ def infinity_norm(vector: list) -> float:
 
 def infinity_p_norm(vector: list,
                     scalor: float = 2,
-                    inf_flag: bool == False) -> float:
+                    inf_flag: bool = False) -> float:
     """ 
     Find the infinity norm or p norm of a vector
     
