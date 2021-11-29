@@ -1,0 +1,3 @@
+1) What is an advantage to using floating point instead of fixed point? 
+
+An advantage to using floating point as aposed to fixed point is that it you are able to scale your calculations down to everything between 0 and 1.  Because if floating point there is a greater amount of "numbers" between 0 and 1 you are able to get more precise calculations.  You will also be able to save storage. 
